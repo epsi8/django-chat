@@ -60,14 +60,7 @@ TEMPLATES = [
 # ✅ ASGI entry
 ASGI_APPLICATION = "chatproject.asgi.application"
 
-# ✅ Database (Render injects DATABASE_URL)
-DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        ssl_require=False
-    )
-}
+
 
 # ✅ Auth
 AUTH_PASSWORD_VALIDATORS = [
@@ -106,3 +99,12 @@ CSRF_TRUSTED_ORIGINS = [
 
 # ✅ Extra: let whitenoise serve compressed static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+import dj_database_url
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
+}
+
