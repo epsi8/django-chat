@@ -7,7 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🔑 Security
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-in-prod")
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"   # ✅ Default True for local dev
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["django-chat-rnuh.onrender.com", "127.0.0.1", "localhost"]
+
 
 # ✅ Static files
 STATIC_URL = "/static/"
@@ -100,6 +101,7 @@ else:
 # ✅ CSRF trusted origins (important for Render)
 CSRF_TRUSTED_ORIGINS = [
     "https://*.onrender.com",
+
 ]
 
 # ✅ Extra: let whitenoise serve compressed static files
