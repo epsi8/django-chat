@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: django-channels-app
+    runtime: python
+    region: oregon           # or your preferred region
+    plan: free               # pick a plan
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: |
+      python manage.py migrate && daphne -b 0.0.0.0 -p $PORT chatproject.asgi:application
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: your-service.onrender.com
+      - key: CSRF_TRUSTED
+        value: https://your-service.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: django-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: django-redis
+          type: redis
+
+  - type: redis
+    name: django-redis
+    ipAllowList: []          # private (recommended)
+    plan: free
+
+databases:
+  - name: django-db
+    plan: free

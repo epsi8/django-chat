@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row g-3"><div class="col-12">
+  <div class="card bg-dark border-secondary"><div class="card-body">
+    <h2 class="h5 mb-3">Start a chat</h2>
+    <p class="text-secondary small mb-3">Tap a user to open a private chat. Green = online.</p>
+    <ul class="list-group" id="userList">
+      {% for u in users %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a class="text-decoration-none" href="{% url 'chat:room' username=u.username %}">@{{ u.username }}</a>
+        <span class="badge rounded-pill bg-secondary" data-username="{{ u.username }}">checking…</span>
+      </li>
+      {% empty %}
+      <li class="list-group-item">No other users yet. Open another browser/incognito and create one more account.</li>
+      {% endfor %}
+    </ul>
+  </div></div>
+</div></div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/presence.js' %}"></script>{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row g-3"><div class="col-12">
+  <div class="card bg-dark border-secondary">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div><div class="h6 m-0">Chat with <strong>@{{ other.username }}</strong></div>
+      <small class="text-secondary" id="status">status: …</small></div>
+      <a class="btn btn-sm btn-outline-light" href="{% url 'chat:home' %}">All users</a>
+    </div>
+    <div class="card-body p-0 d-flex flex-column" style="height:70vh;">
+      <div id="messages" class="flex-grow-1 overflow-auto p-3"></div>
+      <form id="sendForm" class="border-top border-secondary p-2 d-flex gap-2">{% csrf_token %}
+        <input id="messageInput" class="form-control" placeholder="Type a message…" autocomplete="off" required>
+        <button class="btn btn-primary">Send</button>
+      </form>
+    </div>
+  </div>
+</div></div>
+{% endblock %}
+{% block scripts %}
+<script>window.CHAT={conversationId: {{ conversation.id }}, otherUsername: "{{ other.username|escapejs }}"};</script>
+<script src="{% static 'js/room.js' %}"></script>
+<script src="{% static 'js/presence.js' %}"></script>
+{% endblock %}
+

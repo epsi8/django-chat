@@ -1,0 +1,9 @@
+:root { color-scheme: dark; }
+#messages .msg { padding:.5rem .75rem; border-radius:.75rem; margin-bottom:.5rem; }
+#messages .msg.me { background:#0d6efd22; border:1px solid #0d6efd55; align-self:flex-end; }
+#messages .msg.other { background:#222; border:1px solid #444; }
+#messages .meta { font-size:.75rem; opacity:.8; }
+.list-group-item { background-color: transparent; color: #ddd; }
+.badge.online { background:#198754 !important; }
+.badge.offline { background:#6c757d !important; }
+@media (max-width: 991px){ .card-body.p-0.d-flex { height: 75vh !important; } }
